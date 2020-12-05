@@ -21,6 +21,7 @@ class CreateTransactionsTable extends Migration
             $table->string('type');
             $table->integer('amount');
             $table->integer('balance');
+            $table->integer('user_id');
             $table->timestamps();
         });
     }
