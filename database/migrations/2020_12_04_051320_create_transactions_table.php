@@ -17,8 +17,8 @@ class CreateTransactionsTable extends Migration
             $table->id();
             $table->string('title');
             $table->text('remarks')->nullable();
-            $table->string('ref');
-            $table->string('type');
+            $table->string('reference_number');
+            $table->boolean('income');
             $table->integer('amount');
             $table->integer('balance');
             $table->integer('user_id');
