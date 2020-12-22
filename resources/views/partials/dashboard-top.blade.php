@@ -237,10 +237,9 @@
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <span class="dropdown-item">
-                                    <i class="ni ni-user-run"></i>
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        <i class="ni ni-user-run"></i> {{ __('Logout') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
