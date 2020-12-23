@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('content')
-    <div class="header bg-primary pb-6">
+    <div class="header bg-success pb-6">
         <div class="container-fluid">
             <div class="header-body">
                 <div class="row align-items-center py-4">
@@ -69,7 +69,7 @@
                                             {{ $user->email }}
                                         </td>
                                         <td>
-                                            {{ $user->created_at }}
+                                            {!! $user->created_at->diffForHumans() !!}
                                         </td>
                                         <td class="budget">
                                             MVR {{ $user->salary }}
