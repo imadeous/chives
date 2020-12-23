@@ -4,9 +4,7 @@
         <!-- Brand -->
         <div class="sidenav-header  align-items-center">
             <a class="navbar-brand" href="javascript:void(0)">
-                {{-- <img src="app-assets/img/brand/blue.png" class="navbar-brand-img"
-                    alt="..."> --}}
-                <i class="ni ni-badge text-green"></i> Chives
+                <img src="https://via.placeholder.com/250x100" class="navbar-brand-img" alt="...">
             </a>
         </div>
         <div class="navbar-inner">
@@ -119,17 +117,13 @@
                 <!-- Navigation -->
                 <ul class="navbar-nav mb-md-3">
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->is('/users') ? 'active' : '' }}"
-                            href="https://demos.creative-tim.com/argon-dashboard/docs/getting-started/overview.html"
-                            target="_blank">
+                        <a class="nav-link {{ request()->is('/users') ? 'active' : '' }}" href="/users">
                             <i class="ni ni-single-02"></i>
                             <span class="nav-link-text">Staff</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->is('/attendance') ? 'active' : '' }}"
-                            href="https://demos.creative-tim.com/argon-dashboard/docs/foundation/colors.html"
-                            target="_blank">
+                        <a class="nav-link {{ request()->is('/attendance') ? 'active' : '' }}" href="/attendance">
                             <i class="ni ni-time-alarm"></i>
                             <span class="nav-link-text">Attendance</span>
                         </a>

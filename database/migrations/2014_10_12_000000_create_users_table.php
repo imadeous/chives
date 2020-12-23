@@ -19,6 +19,8 @@ class CreateUsersTable extends Migration
             $table->integer('level')->nullable();
             $table->string('name');
             $table->string('image')->nullable();
+            $table->string('id_card')->nullable();
+            $table->string('phone')->nullable();
             $table->date('birthday')->nullable();
             $table->boolean('employed')->nullable();
             $table->integer('salary')->nullable();

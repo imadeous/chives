@@ -22,3 +22,5 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::resource('/users', UserController::class);
+
+Route::put('/users/{user}/fire', [UserController::class, 'fire'])->name('fire');

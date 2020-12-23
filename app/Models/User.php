@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -20,6 +21,14 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'title',
+        'level',
+        'salary',
+        'employed',
+        'birthday',
+        'image',
+        'id_card',
+        'phone'
     ];
 
     /**
@@ -54,5 +63,18 @@ class User extends Authenticatable
     public function transactions()
     {
         return $this->hasMany(Transaction::class);
+    }
+
+    /**
+     * Accessor for Age.
+     */
+    public function getAgeAttribute()
+    {
+        return Carbon::parse($this->attributes['birthday'])->age;
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'id_card';
     }
 }

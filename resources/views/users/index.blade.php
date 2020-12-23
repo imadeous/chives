@@ -16,7 +16,7 @@
                         </nav>
                     </div>
                     <div class="col-lg-6 col-5 text-right">
-                        <a href="#" class="btn btn-sm btn-neutral"><i class="fa fa-plus"></i> New</a>
+                        <a href="/users/create" class="btn btn-sm btn-neutral"><i class="fa fa-plus"></i> Hire</a>
                     </div>
                 </div>
                 {{-- @include('partials.dashboard-stats') --}}
@@ -45,89 +45,45 @@
                                     <th scope="col" class="sort" data-sort="budget">Contact</th>
                                     <th scope="col" class="sort" data-sort="status">Employed Since</th>
                                     <th scope="col" class="sort" data-sort="status">Salary</th>
-                                    <th scope="col" class="sort" data-sort="completion">Status</th>
-                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody class="list">
-                                @foreach ($users as $user)
-                                    <tr>
-                                        <th scope="row">
-                                            <div class="media align-items-center">
-                                                <a href="#" class="avatar rounded-circle mr-3">
-                                                    <img alt="USERNAME" src="{{ $user->image }}">
-                                                </a>
-                                                <div class="media-body">
-                                                    <span class="name mb-0 text-sm">{{ $user->name }}</span>
+                                @if (count($users))
+                                    @foreach ($users as $user)
+                                        <tr>
+                                            <th scope="row">
+                                                <div class="media align-items-center">
+                                                    <a href="{{ route('users.show', $user->id_card) }}"
+                                                        class="avatar rounded-circle mr-3">
+                                                        <img alt="{{ $user->name }}" src="{{ $user->image }}">
+                                                    </a>
+                                                    <div class="media-body">
+                                                        <span class="name mb-0 text-sm">{{ $user->name }}</span>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </th>
-                                        <td>
-                                            {{ $user->title }} {{ $user->level ? 'Level ' . $user->level : '' }}
-                                        </td>
-                                        <td>
-                                            {{ $user->email }}
-                                        </td>
-                                        <td>
-                                            {!! $user->created_at->diffForHumans() !!}
-                                        </td>
-                                        <td class="budget">
-                                            MVR {{ $user->salary }}
-                                        </td>
-                                        <td>
-                                            <span class="badge badge-dot mr-4">
-                                                <i class="bg-success"></i>
-                                                <span class="status">Employed</span>
-                                            </span>
-                                        </td>
-                                        <td class="text-right">
-                                            <div class="dropdown">
-                                                <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
-                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="fas fa-ellipsis-v"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                    <a class="dropdown-item" href="#">View Profile</a>
-                                                    <a class="dropdown-item" href="#">Edit</a>
-                                                    <a class="dropdown-item" href="#">Unemploy</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
+                                            </th>
+                                            <td>
+                                                {{ $user->title }} {{ $user->level ? 'Level ' . $user->level : '' }}
+                                            </td>
+                                            <td>
+                                                {{ $user->phone }}
+                                            </td>
+                                            <td>
+                                                {!! $user->created_at->diffForHumans() !!}
+                                            </td>
+                                            <td class="budget">
+                                                MVR {{ $user->salary }}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
+
+                                @endif
                             </tbody>
                         </table>
-                    </div>
-                    <!-- Card footer -->
-                    <div class="card-footer py-4">
-                        <nav aria-label="...">
-                            <ul class="pagination justify-content-end mb-0">
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#" tabindex="-1">
-                                        <i class="fas fa-angle-left"></i>
-                                        <span class="sr-only">Previous</span>
-                                    </a>
-                                </li>
-                                <li class="page-item active">
-                                    <a class="page-link" href="#">1</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">
-                                        <i class="fas fa-angle-right"></i>
-                                        <span class="sr-only">Next</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-
 @endsection
