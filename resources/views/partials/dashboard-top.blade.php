@@ -208,7 +208,7 @@
                                 aria-expanded="false">
                                 <div class="media align-items-center">
                                     <span class="avatar avatar-sm rounded-circle">
-                                        <img alt="Image placeholder" src="app-assets/img/theme/team-4.jpg">
+                                        <img alt="Image placeholder" src="{{ Auth::user()->image }}">
                                     </span>
                                     <div class="media-body  ml-2  d-none d-lg-block">
                                         <span class="mb-0 text-sm  font-weight-bold">{{ Auth::user()->name }}</span>
@@ -237,10 +237,9 @@
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <span class="dropdown-item">
-                                    <i class="ni ni-user-run"></i>
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        <i class="ni ni-user-run"></i> {{ __('Logout') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
