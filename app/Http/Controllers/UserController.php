@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Carbon\Traits\Timestamp;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -23,7 +25,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::query();
-        $result = $users->orderBy('name')->paginate(10);
+        $result = $users->where('employed', '=', 1)->orderBy('name')->paginate(10);
         return view('users.index')->with('users', $result);
     }
 
@@ -34,7 +36,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('users.create');
     }
 
     /**
@@ -45,7 +47,24 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $image = 'https://robohash.org/' . $request->id_card . '.png';
+        $encryptedpassword = Hash::make($request->password);
+        $date = date("Y/m/d H:i:s");
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $encryptedpassword,
+            'birthday' => $request->birthday,
+            'id_card' => $request->id_card,
+            'phone' => $request->phone,
+            'title' => $request->title,
+            'level' => $request->level,
+            'salary' => $request->salary,
+            'employed' => 1,
+            'image' => $image,
+        ]);
+
+        return redirect()->back();
     }
 
     /**
@@ -54,9 +73,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        //
+        return view('users.show')->with('user', $user);
     }
 
     /**
@@ -77,9 +96,18 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $user->name = $request->name;
+        $user->id_card = $request->id_card;
+        $user->phone = $request->phone;
+        $user->birthday = $request->birthday;
+        $user->title = $request->title;
+        $user->level = $request->level;
+        $user->salary = $request->salary;
+        $user->save();
+
+        return redirect()->back();
     }
 
     /**
@@ -91,5 +119,22 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Change user employed status to 0.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function fire(User $user)
+    {
+        if (!$user->employed) {
+            $user->employed = 1;
+        } else {
+            $user->employed = 0;
+        }
+        $user->save();
+        return redirect()->back();
     }
 }
