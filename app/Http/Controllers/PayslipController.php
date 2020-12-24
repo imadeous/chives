@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Payslip;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PayslipController extends Controller
@@ -25,7 +26,8 @@ class PayslipController extends Controller
      */
     public function create()
     {
-        //
+        $users = User::orderBy('name')->where('employed', '=', 1)->get();
+        return view('payslips.create')->with('users', $users);
     }
 
     /**

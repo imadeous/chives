@@ -15,7 +15,7 @@
                         </nav>
                     </div>
                     <div class="col-lg-6 col-5 text-right">
-                        <a href="/users/create" class="btn btn-sm btn-neutral"><i class="fa fa-plus"></i> Pay</a>
+                        <a href="/payslips/create" class="btn btn-sm btn-neutral"><i class="fa fa-plus"></i> Pay</a>
                     </div>
                 </div>
                 {{-- @include('partials.dashboard-stats') --}}
