@@ -25,7 +25,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::query();
-        $result = $users->orderBy('name')->paginate(10);
+        $result = $users->orderBy('name')->paginate(5);
         return view('users.index')->with('users', $result);
     }
 
@@ -136,5 +136,16 @@ class UserController extends Controller
         }
         $user->save();
         return redirect()->back();
+    }
+
+    /**
+     * Change user employed status to 0.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function payslips(User $user)
+    {
+        return view('users/payslips')->with('user', $user);
     }
 }

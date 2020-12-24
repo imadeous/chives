@@ -65,6 +65,11 @@ class User extends Authenticatable
         return $this->hasMany(Transaction::class);
     }
 
+    public function payslips()
+    {
+        return $this->hasMany(Payslip::class);
+    }
+
     /**
      * Accessor for Age.
      */

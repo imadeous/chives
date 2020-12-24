@@ -14,7 +14,8 @@ class PayslipController extends Controller
      */
     public function index()
     {
-        //
+        $payslips = Payslip::orderBy('paid_on')->with('user:id,name,id_card')->paginate();
+        return view('payslips.index')->with('payslips', $payslips);
     }
 
     /**
@@ -46,7 +47,7 @@ class PayslipController extends Controller
      */
     public function show(Payslip $payslip)
     {
-        //
+        return view('payslips.show')->with('payslip', $payslip);
     }
 
     /**
