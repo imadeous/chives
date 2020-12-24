@@ -21,9 +21,10 @@
                         <a href="{{ route('users.index') }}" class="btn btn-sm btn-neutral"><i class="fa fa-arrow-left"></i>
                             Back</a>
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-sm btn-neutral text-danger" data-toggle="modal"
+                        <button type="button" class="btn btn-sm btn-neutral" data-toggle="modal"
                             data-target="#staticBackdrop">
-                            <i class="fa fa-times"></i> Fire
+                            {!! $user->employed ? "<span class='text-danger'><i class='fa fa-times'></i> Fire</span>" :
+                            "<span class='text-primary'><i class='fa fa-plus' s></i> Hire</span>" !!}
                         </button>
                         <!-- Modal -->
                         <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false"
@@ -31,14 +32,17 @@
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="staticBackdropLabel">Termination Warning!</h5>
+                                        <h5 class="modal-title" id="staticBackdropLabel">
+                                            {!! $user->employed ? 'Termination' : 'Re-employment' !!}
+                                        </h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
                                         <span class="text-muted">
-                                            You are about to Terminate {{ $user->name }}.
+                                            {!! $user->employed ? 'Are you sure you wish to terminate ' . $user->name . '?'
+                                            : 'Are you sure you wish to re-employ ' . $user->name . '?' !!}
                                         </span>
                                     </div>
                                     <div class="modal-footer">
@@ -47,7 +51,7 @@
                                         <form action="/users/{{ $user->id_card }}/fire" method="POST" class="d-inline">
                                             @csrf
                                             @method('PUT')
-                                            <button type="submit" class="btn btn-sm btn-danger">
+                                            <button type="submit" class="btn btn-sm btn-primary">
                                                 Proceed</button>
                                         </form>
                                     </div>
@@ -64,7 +68,8 @@
         <div class="row">
             <div class="col-xl-4 order-xl-2">
                 <div class="card card-profile">
-                    <img src="https://via.placeholder.com/90x50" alt="Image placeholder" class="card-img-top">
+                    <img src="{{ asset('app-assets/img/brand/' . $user->title . '.png') }}" alt="Image placeholder"
+                        class="card-img-top">
                     <div class="row justify-content-center">
                         <div class="col-lg-3 order-lg-2">
                             <div class="card-profile-image">
@@ -107,7 +112,7 @@
                             <div>
                                 <i class="ni education_hat mr-2"></i>
                                 <small
-                                    class="text-muted">{{ $user->employed ? 'Employed Since' . $user->created_at->diffForHumans() : 'Terminated' }}</small>
+                                    class="text-muted">{{ $user->employed ? 'Employed Since ' . $user->created_at->diffForHumans() : 'Terminated' }}</small>
                             </div>
                         </div>
                     </div>

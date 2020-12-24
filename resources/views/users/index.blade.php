@@ -69,7 +69,8 @@
                                                 {{ $user->phone }}
                                             </td>
                                             <td>
-                                                {!! $user->created_at->diffForHumans() !!}
+                                                {!! $user->employed ? $user->created_at->diffForHumans() : "<span
+                                                    class='text-danger'>Terminated</span>" !!}
                                             </td>
                                             <td class="budget">
                                                 MVR {{ $user->salary }}
