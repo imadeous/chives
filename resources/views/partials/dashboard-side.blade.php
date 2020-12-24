@@ -4,7 +4,7 @@
         <!-- Brand -->
         <div class="sidenav-header  align-items-center">
             <a class="navbar-brand" href="javascript:void(0)">
-                <img src="https://via.placeholder.com/250x100" class="navbar-brand-img" alt="...">
+                <img src="{{ asset('app-assets/img/brand/logo.png') }}" class="navbar-brand-img" alt="...">
             </a>
         </div>
         <div class="navbar-inner">
@@ -123,17 +123,16 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->is('/attendance') ? 'active' : '' }}" href="/attendance">
+                        <a class="nav-link {{ request()->is('/attendances') ? 'active' : '' }}" href="/attendances">
                             <i class="ni ni-time-alarm"></i>
                             <span class="nav-link-text">Attendance</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->is('/payroll') ? 'active' : '' }}"
-                            href="https://demos.creative-tim.com/argon-dashboard/docs/components/alerts.html"
+                        <a class="nav-link {{ request()->is('/payslips') ? 'active' : '' }}" href="/payslips"
                             target="_blank">
                             <i class="ni ni-money-coins"></i>
-                            <span class="nav-link-text">Payroll</span>
+                            <span class="nav-link-text">Payslips</span>
                         </a>
                     </li>
                 </ul>
