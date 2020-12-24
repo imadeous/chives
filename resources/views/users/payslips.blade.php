@@ -112,7 +112,8 @@
                                     @if (count($user->payslips))
                                         @foreach ($user->payslips as $payslip)
                                             <tr>
-                                                <td>{{ $payslip->paid_on }}</td>
+                                                <td><a href="{{ route('payslips.show', $payslip) }}"><i
+                                                            class="fa fa-eye mr-1"></i></a>{{ $payslip->paid_on }}</td>
                                                 <td>{{ $payslip->type }}</td>
                                                 <td>MVR {{ $payslip->amount }}</td>
                                                 <td>MVR {{ $payslip->service_charge }}</td>
