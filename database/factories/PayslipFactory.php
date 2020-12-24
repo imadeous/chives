@@ -31,7 +31,7 @@ class PayslipFactory extends Factory
             'total' => $amount + $service_charge,
             'paid_on' => date('Y-m-d'),
             'type' => $this->faker->randomElement([
-                'Salary', 'Compenation', 'Bonus'
+                'Salary', 'Compensation', 'Bonus'
             ]),
             'remarks' => $this->faker->paragraph()
         ];
