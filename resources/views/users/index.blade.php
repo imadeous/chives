@@ -53,7 +53,7 @@
                                             <th scope="row">
                                                 <div class="media align-items-center">
                                                     <a href="{{ route('users.show', $user->id_card) }}"
-                                                        class="avatar rounded-circle mr-3">
+                                                        class="avatar rounded-circle bg-default mr-3">
                                                         <img alt="{{ $user->name }}" src="{{ $user->image }}">
                                                     </a>
                                                     <div class="media-body">

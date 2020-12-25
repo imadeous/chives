@@ -29,15 +29,13 @@
                 <!-- Navigation -->
                 <ul class="navbar-nav mb-md-3">
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->is('/categories') ? 'active' : '' }}"
-                            href="https://demos.creative-tim.com/argon-dashboard/docs/getting-started/overview.html">
+                        <a class="nav-link {{ request()->is('/categories') ? 'active' : '' }}" href="/categories">
                             <i class="ni ni-archive-2"></i>
                             <span class="nav-link-text">Categories</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->is('/items') ? 'active' : '' }}"
-                            href="https://demos.creative-tim.com/argon-dashboard/docs/foundation/colors.html">
+                        <a class="nav-link {{ request()->is('/items') ? 'active' : '' }}" href="/items">
                             <i class="ni ni-basket"></i>
                             <span class="nav-link-text">Items</span>
                         </a>
@@ -54,15 +52,13 @@
                 <!-- Navigation -->
                 <ul class="navbar-nav mb-md-3">
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->is('/tables') ? 'active' : '' }}"
-                            href="https://demos.creative-tim.com/argon-dashboard/docs/getting-started/overview.html">
+                        <a class="nav-link {{ request()->is('/tables') ? 'active' : '' }}" href="/tables">
                             <i class="ni ni-support-16"></i>
                             <span class="nav-link-text">Tables</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->is('/customers') ? 'active' : '' }}"
-                            href="https://demos.creative-tim.com/argon-dashboard/docs/foundation/colors.html">
+                        <a class="nav-link {{ request()->is('/customers') ? 'active' : '' }}" href="/customers">
                             <i class="ni ni-satisfied"></i>
                             <span class="nav-link-text">Customers</span>
                         </a>
@@ -79,22 +75,19 @@
                 <!-- Navigation -->
                 <ul class="navbar-nav mb-md-3">
                     <li class="nav-item">
-                        <a class="nav-link{{ request()->is('/orders') ? 'active' : '' }}"
-                            href="https://demos.creative-tim.com/argon-dashboard/docs/getting-started/overview.html">
+                        <a class="nav-link{{ request()->is('/orders') ? 'active' : '' }}" href="/orders">
                             <i class="ni ni-box-2"></i>
                             <span class="nav-link-text">Orders</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link{{ request()->is('/transactions') ? 'active' : '' }}"
-                            href="https://demos.creative-tim.com/argon-dashboard/docs/foundation/colors.html">
+                        <a class="nav-link{{ request()->is('/transactions') ? 'active' : '' }}" href="/transactions">
                             <i class="ni ni-single-copy-04"></i>
                             <span class="nav-link-text">Transactions</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link{{ request()->is('/reports') ? 'active' : '' }}"
-                            href="https://demos.creative-tim.com/argon-dashboard/docs/foundation/colors.html">
+                        <a class="nav-link{{ request()->is('/reports') ? 'active' : '' }}" href="/reports">
                             <i class="ni ni-collection"></i>
                             <span class="nav-link-text">Reports</span>
                         </a>
@@ -110,8 +103,7 @@
                 <!-- Navigation -->
                 <ul class="navbar-nav mb-md-3">
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->is('/users') ? 'active' : '' }}" href="/users "
-                            target=" _blank">
+                        <a class="nav-link {{ request()->is('/users') ? 'active' : '' }}" href="/users ">
                             <i class="ni ni-single-02"></i>
                             <span class="nav-link-text">Staff</span>
                         </a>

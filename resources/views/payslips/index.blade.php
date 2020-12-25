@@ -52,11 +52,18 @@
                                 @if (count($payslips))
                                     @foreach ($payslips as $payslip)
                                         <tr>
-                                            <td>
-                                                <a href=" /users/{{ $payslip->user->id_card }}/payslips">
-                                                    {{ $payslip->user->name }}
-                                                </a>
-                                            </td>
+                                            <th scope="row">
+                                                <div class="media align-items-center">
+                                                    <a href=" /users/{{ $payslip->user->id_card }}/payslips"
+                                                        class="avatar rounded-circle bg-default mr-3">
+                                                        <img alt="{{ $payslip->user->name }}"
+                                                            src="{{ $payslip->user->image }}">
+                                                    </a>
+                                                    <div class="media-body">
+                                                        <span class="name mb-0 text-sm"> {{ $payslip->user->name }}</span>
+                                                    </div>
+                                                </div>
+                                            </th>
                                             <td>
                                                 {{ $payslip->paid_on }}
                                             </td>
@@ -81,8 +88,8 @@
                                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                                         <a class="dropdown-item"
                                                             href="{{ route('payslips.show', $payslip) }}">View</a>
-                                                        <a class="dropdown-item" href="#">Edit</a>
-                                                        <a class="dropdown-item" href="#">Delete</a>
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('payslips.edit', $payslip) }}">Edit</a>
                                                     </div>
                                                 </div>
                                             </td>

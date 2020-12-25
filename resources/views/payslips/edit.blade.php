@@ -11,7 +11,7 @@
                                 <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
                                 <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
                                 <li class="breadcrumb-item"><a href="/payslips">Payslips</a></li>
-                                <li class="breadcrumb-item">New Payslip</li>
+                                <li class="breadcrumb-item">Edit Payslip</li>
                             </ol>
                         </nav>
                     </div>
@@ -40,13 +40,15 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('payslips.store') }}" method="POST">
+                        <form action="{{ route('payslips.update', $payslip) }}" method="POST">
                             @csrf
-                            @method('POST')
+                            @method('PUT')
                             <div class="form-group">
                                 <label for="">Employee ID Card Number</label>
                                 <select name="user_id" id="" class="custom-select">
-                                    <option value="">Select Staff</option>
+                                    <option value="{{ $payslip->user->id }}">
+                                        {{ $payslip->user->title . ' Level ' . $payslip->user->level . ' ' . $payslip->user->name }}
+                                    </option>
                                     @foreach ($users as $user)
                                         <option value="{{ $user->id }}">
                                             {{ $user->title . ' Level ' . $user->level . ' ' . $user->name }}
@@ -57,6 +59,7 @@
                             <div class="form-group">
                                 <label for="">Payment Type</label>
                                 <select name="type" id="" class="custom-select">
+                                    <option value="{{ $payslip->type }}">{{ $payslip->type }}</option>
                                     <option value="Salary">Salary</option>
                                     <option value="Salary">Bonus</option>
                                     <option value="Salary">Compensation</option>
@@ -65,23 +68,24 @@
                             </div>
                             <div class="form-group">
                                 <label for="">Amount Due</label>
-                                <input type="text" class="form-control" name="amount" placeholder="Amount Due">
+                                <input type="text" class="form-control" name="amount" value="{{ $payslip->amount }}">
                             </div>
                             <div class="form-group">
                                 <label for="">Service Charge</label>
-                                <input type="text" class="form-control" name="service_charge" placeholder="Service Charge">
+                                <input type="text" class="form-control" name="service_charge"
+                                    value="{{ $payslip->service_charge }}">
                             </div>
                             <div class="form-group">
                                 <label for="">Date of Payment
                                     <small class="d-block text-muted">Please leave blank if filling the form on the date of
                                         payment</small>
                                 </label>
-                                <input type="date" class="form-control" name="paid_on">
+                                <input type="date" class="form-control" name="paid_on" value="{{ $payslip->paid_on }}">
                             </div>
                             <div class="form-group">
                                 <label for="">Remarks</label>
-                                <textarea class="form-control" name="remarks" rows='6'
-                                    placeholder="Write a short note about the payment for future reference"></textarea>
+                                <textarea class="form-control" name="remarks" rows="6"
+                                    placeholder="Write a short note about the payment for future reference">{{ $payslip->remarks }}</textarea>
                             </div>
                             <hr class="my-4" />
                             <div class="pl-lg-4 text-center">

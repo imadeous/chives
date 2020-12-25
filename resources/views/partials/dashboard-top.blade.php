@@ -73,7 +73,7 @@
                             <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false">
                                 <div class="media align-items-center">
-                                    <span class="avatar avatar-sm rounded-circle">
+                                    <span class="avatar avatar-sm rounded-circle bg-default">
                                         <img alt="Image placeholder" src="{{ Auth::user()->image }}">
                                     </span>
                                     <div class="media-body  ml-2  d-none d-lg-block">

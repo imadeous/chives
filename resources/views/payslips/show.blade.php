@@ -10,7 +10,8 @@
                             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                                 <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
                                 <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Payslips</li>
+                                <li class="breadcrumb-item"><a href="/payslips">Payslips</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">{{ $payslip->user->name }}</li>
                             </ol>
                         </nav>
                     </div>
@@ -39,14 +40,52 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <button class="btn btn-primary btn-block"><i class="fa fa-print"></i> Print</button>
-                        <button class="btn btn-primary btn-block"><i class="fa fa-envelope"></i> Mail</button>
-                        <button class="btn btn-primary btn-block"><i class="fa fa-edit"></i> Edit</button>
-                        <button class="btn btn-danger btn-block"><i class="fa fa-trash"></i> Delete</button>
+                        <button type="button" class="btn btn-primary btn-block"><i class="fa fa-print"
+                                onclick="window.print()"></i> Print</button>
+                        <a href="{{ route('payslips.edit', $payslip) }}" class="btn btn-primary btn-block"><i
+                                class="fa fa-edit"></i>
+                            Edit</a>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-danger btn-block" data-toggle="modal"
+                            data-target="#staticBackdrop">
+                            <i class="fa fa-trash"></i> Delete
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false"
+                            tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="staticBackdropLabel">
+                                            Delete Payslip
+                                        </h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <span class="text-muted">
+                                            Are you sure you wish yo delete this payslip?
+                                        </span>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-sm btn-secondary"
+                                            data-dismiss="modal">Close</button>
+                                        <form action="{{ route('payslips.destroy', $payslip) }}" method="POST"
+                                            class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-primary">
+                                                Delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-8 order-xl-1">
+            <div class="col-xl-8 order-xl-1" id="printable">
                 <div class="card">
                     <div class="card-header bg-transparent">
                         <div class="row align-items-center">
