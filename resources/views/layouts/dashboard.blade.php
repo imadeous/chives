@@ -33,6 +33,8 @@
     <!-- Page plugins -->
     <!-- Argon CSS -->
     <link rel="stylesheet" href="{{ asset('app-assets/css/argon.css?v=1.2.0') }}" type="text/css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ asset('app-assets/css/custom.css') }}" type="text/css">
 </head>
 
 <body>

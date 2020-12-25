@@ -15,7 +15,7 @@ class PayslipController extends Controller
      */
     public function index()
     {
-        $payslips = Payslip::orderBy('paid_on')->with('user:id,name,id_card')->paginate();
+        $payslips = Payslip::orderBy('paid_on', 'desc')->with('user:id,name,id_card,image')->paginate();
         return view('payslips.index')->with('payslips', $payslips);
     }
 
@@ -38,7 +38,22 @@ class PayslipController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->paid_on != '') {
+            $paid_on = $request->paid_on;
+        } else {
+            $paid_on = date('Y-m-d');
+        }
+        Payslip::create([
+            'user_id' => $request->user_id,
+            'type' => $request->type,
+            'amount' => $request->amount,
+            'service_charge' => $request->service_charge,
+            'total' => $request->amount + $request->service_charge,
+            'paid_on' => $paid_on,
+            'remarks' => $request->remarks
+        ]);
+
+        return redirect()->back();
     }
 
     /**
@@ -49,6 +64,7 @@ class PayslipController extends Controller
      */
     public function show(Payslip $payslip)
     {
+
         return view('payslips.show')->with('payslip', $payslip);
     }
 
@@ -60,7 +76,8 @@ class PayslipController extends Controller
      */
     public function edit(Payslip $payslip)
     {
-        //
+        $users = User::orderBy('name')->where('employed', '=', 1)->get();
+        return view('payslips.edit')->with(['payslip' => $payslip, 'users' => $users]);
     }
 
     /**
@@ -72,7 +89,19 @@ class PayslipController extends Controller
      */
     public function update(Request $request, Payslip $payslip)
     {
-        //
+        $payslip->user_id = $request->user_id;
+        $payslip->amount = $request->amount;
+        $payslip->service_charge = $request->service_charge;
+        $payslip->total = $request->amount + $request->service_charge;
+        if ($request->paid_on != '') {
+            $payslip->paid_on = $request->paid_on;
+        } else {
+            $payslip->paid_on = date('Y-m-d');
+        }
+        $payslip->remarks = $request->remarks;
+        $payslip->save();
+
+        return redirect()->back();
     }
 
     /**
@@ -83,6 +112,7 @@ class PayslipController extends Controller
      */
     public function destroy(Payslip $payslip)
     {
-        //
+        $payslip->delete();
+        return redirect('/payslips');
     }
 }
