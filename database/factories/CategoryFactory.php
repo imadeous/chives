@@ -27,7 +27,7 @@ class CategoryFactory extends Factory
         return [
             'name' => $name,
             'slug' => $slug,
-            'image' => 'https://www.robohash.org/'.$slug,
+            'image' => 'https://robohash.org/' .$slug.'.png?bgset=bg1',
             'description' => $this->faker->paragraph
         ];
     }

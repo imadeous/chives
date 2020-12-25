@@ -4,9 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
+    /**
+     * Create a new instance with auth as middleware
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +23,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+       $categories = Category::all();
+       return view('categories.index')->with('categories', $categories);
     }
 
     /**
@@ -24,7 +34,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+   
     }
 
     /**
@@ -34,8 +44,37 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {   
+        
+        //validate
+        $this->validate($request, [
+            'image' => 'image|nullable|max:1999'
+            ]);
+            $slug = Str::slug($request->name, '-');
+            //Handle File
+         if ($request->hasFile('image')){
+            //Full Filename
+            $fileNameWithExt = $request->file('image')->getClientOriginalName();
+            //Filename
+            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+            //File Extension
+            $extension = $request->file('image')->getClientOriginalExtension();
+            //Self Explanatory
+            $fileNameToStore = $fileName.'_'.time().'.'.$extension;
+            //Do save
+            $path = $request->file('image')->storeAs('public/img/categories', $fileNameToStore);
+        } else {
+            $fileNameToStore = 'https://robohash.org/'.$slug.'.png?bgset=bg1';
+        }
+           
+        Category::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'slug' => $slug,
+            'image' => $fileNameToStore
+        ]);
+
+        return redirect()->back();
     }
 
     /**

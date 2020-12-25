@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PayslipController;
+use App\Http\Controllers\CategoryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,6 +25,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::resource('/users', UserController::class);
 Route::resource('/payslips', PayslipController::class);
+Route::resource('/categories', CategoryController::class);
 
 Route::put('/users/{user}/fire', [UserController::class, 'fire'])->name('fire');
 Route::get('/users/{user}/payslips', [UserController::class, 'payslips'])->name('payslips');
+
+
