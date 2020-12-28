@@ -67,7 +67,7 @@
         <div class="row">
             <div class="col-xl-4 order-xl-2">
                 <div class="card card-profile">
-                    <img src="{{ asset('app-assets/img/brand/' . $user->title . '.png') }}" alt="Image placeholder"
+                    <img src="{!! asset('app-assets/img/brand/' . strtolower($user->title) . '.png') !!}" alt="Image placeholder"
                         class="card-img-top">
                     <div class="row justify-content-center">
                         <div class="col-lg-3 order-lg-2">
