@@ -11,7 +11,7 @@
             <form method="POST" action="{{ route('tables.update', $table) }}">
                 <div class="modal-body">
                     @csrf
-                    @method('POST')
+                    @method('PUT')
                     <div class="form-group">
                         <label>Number</label>
                         <input type="text" class="form-control" name="number" placeholder="Table Number"
