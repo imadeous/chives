@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
         \App\Models\Payslip::factory(20)->create();
         \App\Models\Category::factory(5)->create();
         \App\Models\Table::factory(7)->create();
+        \App\Models\Item::factory(30)->create();
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\PayslipController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\TableController;
+use App\Http\Controllers\ItemController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,7 @@ Route::resource('/payslips', PayslipController::class);
 Route::resource('/categories', CategoryController::class);
 Route::resource('/customers', CustomerController::class);
 Route::resource('/tables', TableController::class);
+Route::resource('/items', ItemController::class);
 
 Route::put('/users/{user}/fire', [UserController::class, 'fire'])->name('fire');
 Route::get('/users/{user}/payslips', [UserController::class, 'payslips'])->name('payslips');
