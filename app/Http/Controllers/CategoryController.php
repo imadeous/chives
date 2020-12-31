@@ -145,6 +145,12 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        $items = Category::find($category->id)->items;
+
+        foreach ($items as $item) {
+            $item->delete();
+        }
+
         $category->delete();
         return redirect('/categories');
     }
