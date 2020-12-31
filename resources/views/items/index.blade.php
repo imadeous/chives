@@ -72,8 +72,8 @@
                                             </td>
                                             <td>
                                                 <a
-                                                    href=" {{-- '/categories/' . $item->category->slug --}}">
-                                                    {{ ucwords($item->category->name) }}
+                                                    href=" {{-- '/categories/' . $category->slug --}}">
+                                                    {{ ucwords($category->name) }}
                                                 </a>
                                             </td>
                                         </tr>
