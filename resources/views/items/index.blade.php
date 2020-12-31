@@ -71,7 +71,7 @@
                                                 MVR {!! number_format($item->price / 100, 2) !!}
                                             </td>
                                             <td>
-                                                <a href=" {!!  '/categories.show/' . $item->category->slug !!}">
+                                                <a href=" {!!  '/categories/' . $item->category->slug !!}">
                                                     {{ $item->category->name }}
                                                 </a>
                                             </td>
