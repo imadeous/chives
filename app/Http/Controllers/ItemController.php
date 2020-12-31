@@ -27,8 +27,7 @@ class ItemController extends Controller
     {
         $categories = Category::all();
         $items = Item::orderBy('name')->with(['category:id,name,slug'])->paginate();
-        return $items;
-        //return view('items.index')->with(['items' => $items, 'categories' => $categories]);
+        return view('items.index')->with(['items' => $items, 'categories' => $categories]);
     }
 
     /**
