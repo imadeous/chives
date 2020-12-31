@@ -71,9 +71,8 @@
                                                 MVR {!! number_format($item->price / 100, 2) !!}
                                             </td>
                                             <td>
-                                                <a
-                                                    href=" {{-- '/categories/' . $category->slug --}}">
-                                                    {{ ucwords($category->name) }}
+                                                <a href=" {{ '/categories/' . $item->category->slug }}">
+                                                    {{ ucwords($item->category->name) }}
                                                 </a>
                                             </td>
                                         </tr>
