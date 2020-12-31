@@ -71,8 +71,9 @@
                                                 MVR {!! number_format($item->price / 100, 2) !!}
                                             </td>
                                             <td>
-                                                <a
-                                                    href="{{ route('categories.show', $item->category->slug) }}">{{ $item->category->name }}</a>
+                                                <a href="{{ route('categories.show', $item->category) }}">
+                                                    {{ $item->category->name }}
+                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach
