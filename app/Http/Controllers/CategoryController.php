@@ -82,7 +82,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        $items = Category::find(1)->items;
+        $items = Category::find($category->id)->items;
         return view('categories.show')->with(['category' => $category, 'items' => $items]);
     }
 
