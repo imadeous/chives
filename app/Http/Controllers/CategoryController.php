@@ -71,7 +71,7 @@ class CategoryController extends Controller
             'image' => '/storage/img/categories/' . $fileNameToStore
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('success', $request->name . ' category created successfully.');
     }
 
     /**
@@ -134,7 +134,7 @@ class CategoryController extends Controller
         }
 
         $category->save();
-        return redirect('/categories/' . $slug);
+        return redirect('/categories/' . $slug)->with('success', $request->name . ' category updated successfully.');
     }
 
     /**
@@ -152,6 +152,6 @@ class CategoryController extends Controller
         }
 
         $category->delete();
-        return redirect('/categories');
+        return redirect('/categories')->with('success', $category->name . ' category deleted successfully.');
     }
 }

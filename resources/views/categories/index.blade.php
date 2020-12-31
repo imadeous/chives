@@ -70,7 +70,9 @@
                                         </tr>
                                     @endforeach
                                 @else
-                                    <tr colspan="4">No Categories to display</tr>
+                                    <tr colspan="4">
+                                        <td>No Categories to display</td>
+                                    </tr>
                                 @endif
                             </tbody>
                         </table>
