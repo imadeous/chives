@@ -28,9 +28,9 @@
         <div class="row">
             <div class="col-xl-4 order-xl-2">
                 <div class="card">
-                    <div class="card-header bg-primary d-flex justify-content-between pt-2 pb-0">
-                        <h4 class="card-title text-white"><?php echo date('F'); ?></h4>
-                        <h4 class="card-title text-white"><?php echo date('Y'); ?></h4>
+                    <div class="card-header bg-primary d-flex justify-content-between align-items-center pt-3 pb-0">
+                        <h5 class="card-title text-white"><?php echo date('F'); ?></h5>
+                        <h5 class="card-title text-white"><?php echo date('Y'); ?></h5>
                     </div>
                     <div class="card-body text-center">
                         <div class="d-flex justify-content-between px-2">
@@ -61,8 +61,8 @@
                                 <hr class="my-0">
                             @endforeach
                         </div>
-                        <div class="text-muted">
-                            <h6><?php echo date('l, d F Y'); ?> </h6>
+                        <div class="text-muted pt-3">
+                            <h6><?php echo date('l, d F Y H:i:s'); ?> </h6>
                         </div>
                     </div>
                 </div>
@@ -80,7 +80,62 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table align-items-center table-flush">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col" class="sort" data-sort="name">Name</th>
+                                    <th scope="col" class="sort" data-sort="name">Today</th>
+                                    <th scope="col" class="sort" data-sort="budget">Attendance</th>
+                                </tr>
+                            </thead>
+                            <tbody class="list">
+                                @if (count($users))
+                                    @foreach ($users as $user)
+                                        <tr>
+                                            <th scope="row">
+                                                <a href="{{ route('users.show', $user->id_card) }}">
+                                                    <div class="media align-items-center">
+                                                        <div class="avatar rounded-circle bg-default mr-3">
+                                                            <img alt="{{ $user->name }}" src="{{ $user->image }}">
+                                                        </div>
+                                                        <div class="media-body">
+                                                            <span class="name mb-0 text-sm d-block">{{ $user->name }}</span>
+                                                            <small class="text-muted">
+                                                                {{ $user->title }}
+                                                                {{ $user->level ? 'Level ' . $user->level : '' }}
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </th>
+                                            <td>
+                                                <span class="badge badge-dot mr-4">
+                                                    <i
+                                                        class="{{ $user->status == 'Present' ? 'bg-success' : 'bg-danger' }}"></i>
+                                                    <span class="status">{{ $user->status }}</span>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <span class="completion mr-2">{{ $user->percentage }}%</span>
+                                                    <div>
+                                                        <div class="progress">
+                                                            <div class="progress-bar bg-primary" role="progressbar"
+                                                                aria-valuenow="{{ $user->percentage }}" aria-valuemin="0"
+                                                                aria-valuemax="100"
+                                                                style="width: {{ $user->percentage }}%;"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
+
+                                @endif
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

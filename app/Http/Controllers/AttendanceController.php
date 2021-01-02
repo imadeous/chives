@@ -26,18 +26,31 @@ class AttendanceController extends Controller
         $weekday_of_first = date('w', strtotime(date('Y-m-01'))) + 1;
         $holidays = [5, 6, 12, 13, 19, 20, 26, 27, 33, 34, 40, 41];
         $weeks = [];
-
+        $end_of_month = date('t');
         for ($i = 1; $i < $weekday_of_first; $i++) {
             array_push($weeks, '');
         }
 
-        for ($i = 1; $i <= date('t'); $i++) {
+        for ($i = 1; $i <= $end_of_month; $i++) {
             array_push($weeks, $i);
         }
 
         $weeks = array_chunk($weeks, 7, true);
 
         $users = User::orderBy('name')->where('employed', '=', 1)->get();
+
+        foreach ($users as $user) {
+            $attendance = Attendance::where(['user_id' => $user->id, 'date' => date('Y-m-d')])->firstOrFail();
+            if ($attendance->present) {
+                $user->status = 'Present';
+            } else {
+                $user->status = 'Absent';
+            }
+
+            $attendance = Attendance::where(['user_id' => $user->id, 'present' => 1])->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->get();
+            $user->percentage = floor((count($attendance) / $end_of_month) * 100);
+        }
+
         return view('attendances.index')->with(['users' => $users, 'holidays' => $holidays, 'weeks' => $weeks]);
     }
 
