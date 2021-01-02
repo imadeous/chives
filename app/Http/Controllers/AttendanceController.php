@@ -49,6 +49,7 @@ class AttendanceController extends Controller
 
             $attendance = Attendance::where(['user_id' => $user->id, 'present' => 1])->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->get();
             $user->percentage = floor((count($attendance) / $end_of_month) * 100);
+            $user->payable = ($user->percentage / 100) * $user->salary;
         }
 
         return view('attendances.index')->with(['users' => $users, 'holidays' => $holidays, 'weeks' => $weeks]);

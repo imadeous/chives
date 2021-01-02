@@ -128,6 +128,9 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <small class="text-muted">
+                                                    MVR {{ number_format($user->payable / 100, 2) }}
+                                                </small>
                                             </td>
                                         </tr>
                                     @endforeach
