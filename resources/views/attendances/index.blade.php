@@ -15,10 +15,11 @@
                         </nav>
                     </div>
                     <div class="col-lg-6 col-5 text-right">
-                        <a href="{{-- url()->previous() --}}"
-                            class="btn btn-sm btn-neutral"><i class="fa fa-plus"></i>
+                        <a href="#" data-target="#create-attendance" data-toggle="modal" class="btn btn-sm btn-neutral"><i
+                                class="fa fa-plus"></i>
                             Add</a>
                     </div>
+                    @include('attendances.create-attendance')
                 </div>
                 {{-- @include('partials.dashboard-stats') --}}
             </div>

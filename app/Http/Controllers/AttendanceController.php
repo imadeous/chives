@@ -47,7 +47,7 @@ class AttendanceController extends Controller
                 if ($attendance->present) {
                     $user->status = 'Present';
                 } else {
-                    $user->status = 'Absent';
+                    $user->status = $attendance->remarks;
                 }
             } else $user->status = 'Waiting...';
 
@@ -77,7 +77,22 @@ class AttendanceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // return $request->all();
+        foreach ($request->user as $user) {
+            if (array_key_exists('present', $user)) {
+                $present = 1;
+            } else {
+                $present = 0;
+            }
+            Attendance::create([
+                'user_id' => $user['user_id'],
+                'date' => $request->date,
+                'present' => $present,
+                'remarks' => $user['remarks'],
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Attendance Records for ' . $request->date . ' created successfully');
     }
 
     /**
