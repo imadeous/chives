@@ -49,19 +49,23 @@
                                 <div class="d-flex justify-content-between px-2">
                                     @foreach ($days as $key => $day)
                                         @if (in_array($key, $holidays) && $day == date('d'))
-                                            <a class='day text-white bg-danger mt-3 px-1' href="{{ route('attendances.show', date('Y-m-' . $day)) }}">
+                                            <a class='day text-white bg-danger mt-3 px-1'
+                                                href="{{ route('attendances.show', date('Y-m-' . $day)) }}">
                                                 {{ $day }}
                                             </a>
                                         @elseif ($day == date('d'))
-                                            <a class='day text-white bg-primary text-center mt-3 px-1' href="{{ route('attendances.show', date('Y-m-' . $day)) }}">
+                                            <a class='day text-white bg-primary text-center mt-3 px-1'
+                                                href="{{ route('attendances.show', date('Y-m-' . $day)) }}">
                                                 {{ $day }}
                                             </a>
                                         @elseif (in_array($key, $holidays))
-                                            <a class='day text-danger text-center mt-3 px-1' href="{{ route('attendances.show', date('Y-m-' . $day)) }}">
+                                            <a class='day text-danger text-center mt-3 px-1'
+                                                href="{{ route('attendances.show', date('Y-m-' . $day)) }}">
                                                 {{ $day }}
                                             </a>
                                         @else
-                                            <a class='day text-center mt-3 px-1' href="{{ route('attendances.show', date('Y-m-' . $day)) }}">
+                                            <a class='day text-center mt-3 px-1'
+                                                href="{{ route('attendances.show', date('Y-m-' . $day)) }}">
                                                 {{ $day }}
                                             </a>
                                         @endif

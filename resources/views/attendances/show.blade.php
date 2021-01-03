@@ -11,16 +11,17 @@
                                 <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
                                 <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
                                 <li class="breadcrumb-item"><a href="/attendances">Attendance</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">{{date('d F Y',strtotime($attendance->date))}}</li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    {{ date('d F Y', strtotime($attendance->date)) }}
+                                </li>
                             </ol>
                         </nav>
                     </div>
                     <div class="col-lg-6 col-5 text-right">
-                        <a href="#" data-target="#edit-attendance" data-toggle="modal" class="btn btn-sm btn-neutral">
-                            <i class="fa fa-plus"></i> Edit
+                        <a href="{{ url()->previous() }}" class="btn btn-sm btn-neutral">
+                            <i class="fa fa-arrow-left"></i> Back
                         </a>
                     </div>
-                    @include('attendances.edit-attendance')
                 </div>
                 {{-- @include('partials.dashboard-stats') --}}
             </div>
@@ -50,19 +51,23 @@
                                 <div class="d-flex justify-content-between px-2">
                                     @foreach ($days as $key => $day)
                                         @if (in_array($key, $holidays) && $day == date('d', strtotime($attendance->date)))
-                                            <a class='day text-white bg-danger mt-3 px-1' href="{{ route('attendances.show', date('Y-m-' . $day)) }}">
-                                               {{ $day }}
+                                            <a class='day text-white bg-danger mt-3 px-1'
+                                                href="{{ route('attendances.show', date('Y-m-' . $day)) }}">
+                                                {{ $day }}
                                             </a>
                                         @elseif ($day == date('d', strtotime($attendance->date)))
-                                            <a class='day text-white bg-primary text-center mt-3 px-1' href="{{ route('attendances.show', date('Y-m-' . $day)) }}">
+                                            <a class='day text-white bg-primary text-center mt-3 px-1'
+                                                href="{{ route('attendances.show', date('Y-m-' . $day)) }}">
                                                 {{ $day }}
                                             </a>
                                         @elseif (in_array($key, $holidays))
-                                            <a class='day text-danger text-center mt-3 px-1'  href="{{ route('attendances.show', date('Y-m-' . $day)) }}">
+                                            <a class='day text-danger text-center mt-3 px-1'
+                                                href="{{ route('attendances.show', date('Y-m-' . $day)) }}">
                                                 {{ $day }}
                                             </a>
                                         @else
-                                            <a class='day text-center mt-3 px-1' href="{{ route('attendances.show', date('Y-m-' . $day)) }}">
+                                            <a class='day text-center mt-3 px-1'
+                                                href="{{ route('attendances.show', date('Y-m-' . $day)) }}">
                                                 {{ $day }}
                                             </a>
                                         @endif
@@ -85,7 +90,7 @@
                                 <h6 class="text-light text-uppercase ls-1 mb-1">Human Resource Management</h6>
                                 <h5 class="h3 text-primary mb-0">
                                     <i class="ni ni-money-coins"></i>
-                                    Attendance of {{date('d F Y',strtotime($attendance->date))}}
+                                    Attendance of {{ date('d F Y', strtotime($attendance->date)) }}
                                 </h5>
                             </div>
                         </div>
@@ -96,6 +101,7 @@
                                 <tr>
                                     <th scope="col" class="sort" data-sort="name">Name</th>
                                     <th scope="col" class="sort" data-sort="name">Attendance Status</th>
+                                    <th scope="col" class="sort" data-sort="name">Actions</th>
                                 </tr>
                             </thead>
                             <tbody class="list">
@@ -126,7 +132,23 @@
                                                     <span class="status">{{ $attendance->status }}</span>
                                                 </span>
                                             </td>
+                                            <td class="text-right">
+                                                <div class="dropdown">
+                                                    <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
+                                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="fas fa-ellipsis-v"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                        <a class="dropdown-item" href="#" data-toggle="modal"
+                                                            data-target="#edit-attendance-{{ $attendance->id }}">Edit</a>
+                                                        <a class="dropdown-item" href="#" data-toggle="modal"
+                                                            data-target="#delete-attendance-{{ $attendance->id }}">Delete</a>
+                                                    </div>
+                                                </div>
+                                            </td>
                                         </tr>
+                                        @include('attendances.edit-attendance')
+                                        @include('attendances.delete-attendance')
                                     @endforeach
                                 @else
                                     <tr colspan="3">

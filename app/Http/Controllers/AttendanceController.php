@@ -136,20 +136,20 @@ class AttendanceController extends Controller
 
         $attendances = Attendance::where('date', '=', $attendance->date)->with('user:id,name,title,level,id_card,image')->get();
 
-        foreach($attendances as $attendance) {
-            if ($attendance->present && !$attendance->remarks){
+        foreach ($attendances as $attendance) {
+            if ($attendance->present && !$attendance->remarks) {
                 $attendance->status = 'Present';
                 $attendance->LED = 'bg-success';
             }
-            if ($attendance->present && $attendance->remarks){
+            if ($attendance->present && $attendance->remarks) {
                 $attendance->status = $attendance->remarks;
                 $attendance->LED = 'bg-info';
             }
-            if (!$attendance->present && $attendance->remarks){
+            if (!$attendance->present && $attendance->remarks) {
                 $attendance->status = $attendance->remarks;
                 $attendance->LED = 'bg-danger';
             }
-            if (!$attendance->present && !$attendance->remarks){
+            if (!$attendance->present && !$attendance->remarks) {
                 $attendance->status = 'Absent';
                 $attendance->LED = 'bg-danger';
             }
@@ -183,7 +183,19 @@ class AttendanceController extends Controller
      */
     public function update(Request $request, Attendance $attendance)
     {
-        //
+
+        $attendance = Attendance::where(['user_id' => $request->user_id, 'date' => $attendance->date])->first();
+
+        $attendance->date = $request->date;
+        $attendance->remarks = $request->remarks;
+        if ($request->present = "on") {
+            $attendance->present = 1;
+        } else {
+            $attendance->present = 0;
+        }
+        $attendance->save();
+
+        return redirect()->back()->with('success', 'Attendance Record updated successfully');
     }
 
     /**
@@ -194,6 +206,8 @@ class AttendanceController extends Controller
      */
     public function destroy(Attendance $attendance)
     {
-        //
+        $attendance = Attendance::where(['id' => $attendance->id])->first();
+        $attendance->delete();
+        return redirect()->back()->with('success', 'Attendance Record deleted successfully');
     }
 }
