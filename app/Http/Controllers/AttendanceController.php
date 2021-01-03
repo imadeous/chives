@@ -39,13 +39,17 @@ class AttendanceController extends Controller
 
         $users = User::orderBy('name')->where('employed', '=', 1)->get();
 
+        // return $users;
+
         foreach ($users as $user) {
-            $attendance = Attendance::where(['user_id' => $user->id, 'date' => date('Y-m-d')])->firstOrFail();
-            if ($attendance->present) {
-                $user->status = 'Present';
-            } else {
-                $user->status = 'Absent';
-            }
+            $attendance = Attendance::where(['user_id' => $user->id, 'date' => date('Y-m-d')])->first();
+            if ($attendance) {
+                if ($attendance->present) {
+                    $user->status = 'Present';
+                } else {
+                    $user->status = 'Absent';
+                }
+            } else $user->status = 'Waiting...';
 
             $attendance = Attendance::where(['user_id' => $user->id, 'present' => 1])->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->get();
             $user->percentage = floor((count($attendance) / $end_of_month) * 100);

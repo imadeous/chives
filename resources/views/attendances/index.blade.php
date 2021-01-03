@@ -62,7 +62,7 @@
                             @endforeach
                         </div>
                         <div class="text-muted pt-3">
-                            <h6><?php echo date('l, d F Y H:i:s'); ?> </h6>
+                            <h6><?php echo date('l, d F Y'); ?> </h6>
                         </div>
                     </div>
                 </div>
@@ -112,7 +112,7 @@
                                             <td>
                                                 <span class="badge badge-dot mr-4">
                                                     <i
-                                                        class="{{ $user->status == 'Present' ? 'bg-success' : 'bg-danger' }}"></i>
+                                                        class="{{ ($user->status == 'Present' ? 'bg-success' : $user->status == 'Absent') ? 'bg-danger' : 'bg-warning' }}"></i>
                                                     <span class="status">{{ $user->status }}</span>
                                                 </span>
                                             </td>
