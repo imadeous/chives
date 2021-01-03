@@ -112,7 +112,7 @@
                                             <td>
                                                 <span class="badge badge-dot mr-4">
                                                     <i
-                                                        class="{{ ($user->status == 'Present' ? 'bg-success' : $user->status == 'Absent') ? 'bg-danger' : 'bg-warning' }}"></i>
+                                                        class="{{ $user->status == 'Present' ? 'bg-success' : 'bg-warning' }}"></i>
                                                     <span class="status">{{ $user->status }}</span>
                                                 </span>
                                             </td>
