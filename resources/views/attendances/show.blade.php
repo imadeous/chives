@@ -16,12 +16,11 @@
                         </nav>
                     </div>
                     <div class="col-lg-6 col-5 text-right">
-                        <a href="#" data-target="#create-attendance" data-toggle="modal" class="btn btn-sm btn-neutral"><i
-                                class="fa fa-plus"></i>
-                            Add</a>
+                        <a href="#" data-target="#edit-attendance" data-toggle="modal" class="btn btn-sm btn-neutral">
+                            <i class="fa fa-plus"></i> Edit
+                        </a>
                     </div>
-                    {{-- @include('attendances.create-attendance')
-                    --}}
+                    @include('attendances.edit-attendance')
                 </div>
                 {{-- @include('partials.dashboard-stats') --}}
             </div>
@@ -51,17 +50,21 @@
                                 <div class="d-flex justify-content-between px-2">
                                     @foreach ($days as $key => $day)
                                         @if (in_array($key, $holidays) && $day == date('d', strtotime($attendance->date)))
-                                            <span class='day text-white bg-danger mt-3 px-1'><a
-                                                    href="{{ route('attendances.show', date('Y-m-' . $day)) }}">{{ $day }}</a></span>
+                                            <a class='day text-white bg-danger mt-3 px-1' href="{{ route('attendances.show', date('Y-m-' . $day)) }}">
+                                               {{ $day }}
+                                            </a>
                                         @elseif ($day == date('d', strtotime($attendance->date)))
-                                            <span class='day text-white bg-primary text-center mt-3 px-1'><a
-                                                    href="{{ route('attendances.show', date('Y-m-' . $day)) }}">{{ $day }}</a></span>
+                                            <a class='day text-white bg-primary text-center mt-3 px-1' href="{{ route('attendances.show', date('Y-m-' . $day)) }}">
+                                                {{ $day }}
+                                            </a>
                                         @elseif (in_array($key, $holidays))
-                                            <span class='day text-danger text-center mt-3 px-1'><a
-                                                    href="{{ route('attendances.show', date('Y-m-' . $day)) }}">{{ $day }}</a></span>
+                                            <a class='day text-danger text-center mt-3 px-1'  href="{{ route('attendances.show', date('Y-m-' . $day)) }}">
+                                                {{ $day }}
+                                            </a>
                                         @else
-                                            <span class='day text-center mt-3 px-1'><a
-                                                    href="{{ route('attendances.show', date('Y-m-' . $day)) }}">{{ $day }}</a></span>
+                                            <a class='day text-center mt-3 px-1' href="{{ route('attendances.show', date('Y-m-' . $day)) }}">
+                                                {{ $day }}
+                                            </a>
                                         @endif
                                     @endforeach
                                 </div>

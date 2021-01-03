@@ -69,7 +69,11 @@ class AttendanceController extends Controller
         }
 
         //return $users;
-        return view('attendances.index')->with(['users' => $users, 'holidays' => $holidays, 'weeks' => $weeks]);
+        return view('attendances.index')->with([
+            'users' => $users,
+            'holidays' => $holidays,
+            'weeks' => $weeks
+        ]);
     }
 
     /**
@@ -151,7 +155,12 @@ class AttendanceController extends Controller
             }
         }
 
-        return view('attendances.show')->with(['attendance' => $attendance, 'attendances' => $attendances, 'holidays' => $holidays, 'weeks' => $weeks]);
+        return view('attendances.show')->with([
+            'attendance' => $attendance,
+            'attendances' => $attendances,
+            'holidays' => $holidays,
+            'weeks' => $weeks
+        ]);
     }
 
     /**
