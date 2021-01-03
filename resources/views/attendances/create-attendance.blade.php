@@ -13,7 +13,8 @@
                     @method('POST')
                     <div class="form-group">
                         <label for="">Date</label>
-                        <input type="date" name="date" class="form-control" value="{{ date('Y-m-d') }}">
+                        <input type="date" max='{{ date('Y-m-d') }}' name="date" class="form-control"
+                            value="{{ date('Y-m-d') }}">
                     </div>
                     <table class="table">
                         <thead>
