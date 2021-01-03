@@ -183,12 +183,11 @@ class AttendanceController extends Controller
      */
     public function update(Request $request, Attendance $attendance)
     {
-
         $attendance = Attendance::where(['user_id' => $request->user_id, 'date' => $attendance->date])->first();
 
         $attendance->date = $request->date;
-        $attendance->remarks = $request->remarks;
-        if ($request->present = "on") {
+        $attendance->remarks =  $request->remarks;
+        if ($request->present) {
             $attendance->present = 1;
         } else {
             $attendance->present = 0;
