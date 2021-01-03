@@ -25,7 +25,7 @@ class AttendanceFactory extends Factory
             'user_id' => $this->faker->unique()->numberBetween(1, 5),
             'present' => $this->faker->boolean(),
             'date'    => date('Y-m-d'),
-            'remarks' => $this->faker->paragraph()
+            'remarks' => $this->faker->unique->word()
         ];
     }
 }
