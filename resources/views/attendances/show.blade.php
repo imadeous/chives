@@ -82,7 +82,7 @@
                                 <h6 class="text-light text-uppercase ls-1 mb-1">Human Resource Management</h6>
                                 <h5 class="h3 text-primary mb-0">
                                     <i class="ni ni-money-coins"></i>
-                                    Attendance
+                                    Attendance of {{date('d F Y',strtotime($attendance->date))}}
                                 </h5>
                             </div>
                         </div>
