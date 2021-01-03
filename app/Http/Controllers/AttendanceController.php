@@ -44,18 +44,31 @@ class AttendanceController extends Controller
         foreach ($users as $user) {
             $attendance = Attendance::where(['user_id' => $user->id, 'date' => date('Y-m-d')])->first();
             if ($attendance) {
-                if ($attendance->present) {
+                if ($attendance->present && !$attendance->remarks) {
                     $user->status = 'Present';
-                } else {
+                    $user->LED = 'bg-success';
+                } elseif ($attendance->present && $attendance->remarks) {
                     $user->status = $attendance->remarks;
+                    $user->LED = 'bg-info';
+                } else {
+                    $user->status = ($attendance->remarks) ? $attendance->remarks : 'Absent';
+                    $user->LED = 'bg-warning';
                 }
-            } else $user->status = 'Waiting...';
+            } else {
+                $user->status = 'Waiting...';
+                $user->LED = 'bg-warning';
+            }
 
-            $attendance = Attendance::where(['user_id' => $user->id, 'present' => 1])->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->get();
-            $user->percentage = floor((count($attendance) / $end_of_month) * 100);
+            $user->earnings = Attendance::where(['user_id' => $user->id, 'present' => 1])->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->get();
+            $user->deductions = Attendance::where(['user_id' => $user->id, 'present' => 0])->whereYear('date', '=', date('Y'))->whereMonth('date', '=', date('m'))->get();
+
+            $payable = ((count($user->earnings) - count($user->deductions)) <= 0) ? 0 : count($user->earnings);
+            $user->percentage = floor(($payable / $end_of_month) * 100);
+
             $user->payable = ($user->percentage / 100) * $user->salary;
         }
 
+        //return $users;
         return view('attendances.index')->with(['users' => $users, 'holidays' => $holidays, 'weeks' => $weeks]);
     }
 
@@ -103,7 +116,42 @@ class AttendanceController extends Controller
      */
     public function show(Attendance $attendance)
     {
-        //
+        $weekday_of_first = date('w', strtotime(date('Y-m-01'))) + 1;
+        $holidays = [5, 6, 12, 13, 19, 20, 26, 27, 33, 34, 40, 41];
+        $weeks = [];
+        $end_of_month = date('t');
+        for ($i = 1; $i < $weekday_of_first; $i++) {
+            array_push($weeks, '');
+        }
+
+        for ($i = 1; $i <= $end_of_month; $i++) {
+            array_push($weeks, $i);
+        }
+
+        $weeks = array_chunk($weeks, 7, true);
+
+        $attendances = Attendance::where('date', '=', $attendance->date)->with('user:id,name,title,level,id_card,image')->get();
+
+        foreach($attendances as $attendance) {
+            if ($attendance->present && !$attendance->remarks){
+                $attendance->status = 'Present';
+                $attendance->LED = 'bg-success';
+            }
+            if ($attendance->present && $attendance->remarks){
+                $attendance->status = $attendance->remarks;
+                $attendance->LED = 'bg-info';
+            }
+            if (!$attendance->present && $attendance->remarks){
+                $attendance->status = $attendance->remarks;
+                $attendance->LED = 'bg-danger';
+            }
+            if (!$attendance->present && !$attendance->remarks){
+                $attendance->status = 'Absent';
+                $attendance->LED = 'bg-danger';
+            }
+        }
+
+        return view('attendances.show')->with(['attendance' => $attendance, 'attendances' => $attendances, 'holidays' => $holidays, 'weeks' => $weeks]);
     }
 
     /**

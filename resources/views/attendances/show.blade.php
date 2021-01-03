@@ -10,7 +10,8 @@
                             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                                 <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
                                 <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Attendance</li>
+                                <li class="breadcrumb-item"><a href="/attendances">Attendance</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">{{date('d F Y',strtotime($attendance->date))}}</li>
                             </ol>
                         </nav>
                     </div>
@@ -19,7 +20,8 @@
                                 class="fa fa-plus"></i>
                             Add</a>
                     </div>
-                    @include('attendances.create-attendance')
+                    {{-- @include('attendances.create-attendance')
+                    --}}
                 </div>
                 {{-- @include('partials.dashboard-stats') --}}
             </div>
@@ -48,10 +50,10 @@
                             @foreach ($weeks as $week => $days)
                                 <div class="d-flex justify-content-between px-2">
                                     @foreach ($days as $key => $day)
-                                        @if (in_array($key, $holidays) && $day == date('d'))
+                                        @if (in_array($key, $holidays) && $day == date('d', strtotime($attendance->date)))
                                             <span class='day text-white bg-danger mt-3 px-1'><a
                                                     href="{{ route('attendances.show', date('Y-m-' . $day)) }}">{{ $day }}</a></span>
-                                        @elseif ($day == date('d'))
+                                        @elseif ($day == date('d', strtotime($attendance->date)))
                                             <span class='day text-white bg-primary text-center mt-3 px-1'><a
                                                     href="{{ route('attendances.show', date('Y-m-' . $day)) }}">{{ $day }}</a></span>
                                         @elseif (in_array($key, $holidays))
@@ -90,25 +92,26 @@
                             <thead class="thead-light">
                                 <tr>
                                     <th scope="col" class="sort" data-sort="name">Name</th>
-                                    <th scope="col" class="sort" data-sort="name">Today</th>
-                                    <th scope="col" class="sort" data-sort="budget">Attendance</th>
+                                    <th scope="col" class="sort" data-sort="name">Attendance Status</th>
                                 </tr>
                             </thead>
                             <tbody class="list">
-                                @if (count($users))
-                                    @foreach ($users as $user)
+                                @if ($attendances)
+                                    @foreach ($attendances as $attendance)
                                         <tr>
                                             <th scope="row">
-                                                <a href="{{ route('users.show', $user->id_card) }}">
+                                                <a href="{{ route('users.show', $attendance->user->id_card) }}">
                                                     <div class="media align-items-center">
                                                         <div class="avatar rounded-circle bg-default mr-3">
-                                                            <img alt="{{ $user->name }}" src="{{ $user->image }}">
+                                                            <img alt="{{ $attendance->user->name }}"
+                                                                src="{{ $attendance->user->image }}">
                                                         </div>
                                                         <div class="media-body">
-                                                            <span class="name mb-0 text-sm d-block">{{ $user->name }}</span>
+                                                            <span
+                                                                class="name mb-0 text-sm d-block">{{ $attendance->user->name }}</span>
                                                             <small class="text-muted">
-                                                                {{ $user->title }}
-                                                                {{ $user->level ? 'Level ' . $user->level : '' }}
+                                                                {{ $attendance->user->title }}
+                                                                {{ $attendance->user->level ? 'Level ' . $attendance->user->level : '' }}
                                                             </small>
                                                         </div>
                                                     </div>
@@ -116,30 +119,16 @@
                                             </th>
                                             <td>
                                                 <span class="badge badge-dot mr-4">
-                                                    <i class="{{ $user->LED }}"></i>
-                                                    <span class="status">{{ $user->status }}</span>
+                                                    <i class="{{ $attendance->LED }}"></i>
+                                                    <span class="status">{{ $attendance->status }}</span>
                                                 </span>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <span class="completion mr-2">{{ $user->percentage }}%</span>
-                                                    <div>
-                                                        <div class="progress">
-                                                            <div class="progress-bar bg-primary" role="progressbar"
-                                                                aria-valuenow="{{ $user->percentage }}" aria-valuemin="0"
-                                                                aria-valuemax="100"
-                                                                style="width: {{ $user->percentage }}%;"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <small class="text-muted">
-                                                    MVR {{ number_format($user->payable / 100, 2) }}
-                                                </small>
                                             </td>
                                         </tr>
                                     @endforeach
                                 @else
-
+                                    <tr colspan="3">
+                                        <td></td>
+                                    </tr>
                                 @endif
                             </tbody>
                         </table>
