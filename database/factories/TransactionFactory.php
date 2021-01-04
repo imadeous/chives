@@ -22,12 +22,12 @@ class TransactionFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->sentence,
-            'remarks' => $this->faker->paragraph,
-            'reference_number' => $this->faker->unique()->ean8,
-            'income' => $this->faker->boolean(),
-            'amount' => $this->faker->randomNumber(4),
-            'balance' => $this->faker->randomNumber(5),
+            'title' => 'Initial Investment',
+            'remarks' => 'Strating balance of the restaurant',
+            'reference_number' => 'CHIVES/0001',
+            'income' => 1,
+            'amount' => 1000000,
+            'balance' => 1000000,
             'user_id' => 1
         ];
     }
