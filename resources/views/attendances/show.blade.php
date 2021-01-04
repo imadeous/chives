@@ -21,7 +21,12 @@
                         <a href="{{ url()->previous() }}" class="btn btn-sm btn-neutral">
                             <i class="fa fa-arrow-left"></i> Back
                         </a>
+                        <a href="#" data-target="#delete-attendance" data-toggle="modal"
+                            class="btn btn-sm btn-neutral text-danger">
+                            <i class="fa fa-trash"></i> Delete
+                        </a>
                     </div>
+                    @include('attendances.delete-attendance')
                 </div>
                 {{-- @include('partials.dashboard-stats') --}}
             </div>
@@ -141,14 +146,11 @@
                                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                                         <a class="dropdown-item" href="#" data-toggle="modal"
                                                             data-target="#edit-attendance-{{ $attendance->id }}">Edit</a>
-                                                        <a class="dropdown-item" href="#" data-toggle="modal"
-                                                            data-target="#delete-attendance-{{ $attendance->id }}">Delete</a>
                                                     </div>
                                                 </div>
                                             </td>
                                         </tr>
                                         @include('attendances.edit-attendance')
-                                        @include('attendances.delete-attendance')
                                     @endforeach
                                 @else
                                     <tr colspan="3">

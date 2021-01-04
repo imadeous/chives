@@ -205,8 +205,10 @@ class AttendanceController extends Controller
      */
     public function destroy(Attendance $attendance)
     {
-        $attendance = Attendance::where(['id' => $attendance->id])->first();
-        $attendance->delete();
-        return redirect()->back()->with('success', 'Attendance Record deleted successfully');
+        $attendances = Attendance::where(['date' => $attendance->date])->get();
+        foreach ($attendances as $attendance) {
+            $attendance->delete();
+        }
+        return redirect('/attendances')->with('success', 'Attendance Record for ' . date('d M Y', strtotime($attendance->date)) . ' deleted successfully');
     }
 }
