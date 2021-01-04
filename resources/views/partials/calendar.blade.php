@@ -31,7 +31,7 @@
             @foreach ($weeks as $week => $days)
                 <div class="d-flex justify-content-between px-2">
                     @foreach ($days as $key => $day)
-                        @if( $day <= date('d', strtotime($today)))
+                        @if( $day <= date('d', strtotime(date('Y-m-d'))))
                             @if (in_array($key, $holidays) && $day == date('d', strtotime($today)))
                                 <a class='day text-white bg-danger mt-3 px-1'
                                     href="{{ route('attendances.show', date('Y-m-' . $day)) }}">
