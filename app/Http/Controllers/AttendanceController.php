@@ -23,6 +23,7 @@ class AttendanceController extends Controller
      */
     public function index()
     {
+        $today = date('Y-m-d');
         $weekday_of_first = date('w', strtotime(date('Y-m-01'))) + 1;
         $holidays = [5, 6, 12, 13, 19, 20, 26, 27, 33, 34, 40, 41];
         $weeks = [];
@@ -38,8 +39,6 @@ class AttendanceController extends Controller
         $weeks = array_chunk($weeks, 7, true);
 
         $users = User::orderBy('name')->where('employed', '=', 1)->get();
-
-        // return $users;
 
         foreach ($users as $user) {
             $attendance = Attendance::where(['user_id' => $user->id, 'date' => date('Y-m-d')])->first();
@@ -68,11 +67,11 @@ class AttendanceController extends Controller
             $user->payable = ($user->percentage / 100) * $user->salary;
         }
 
-        //return $users;
         return view('attendances.index')->with([
             'users' => $users,
             'holidays' => $holidays,
-            'weeks' => $weeks
+            'weeks' => $weeks,
+            'today' => $today
         ]);
     }
 
@@ -109,7 +108,9 @@ class AttendanceController extends Controller
             ]);
         }
 
-        return redirect()->back()->with('success', 'Attendance Records for ' . $request->date . ' created successfully');
+        return redirect()
+        ->back()
+        ->with('success', 'Attendance Records for ' . $request->date . ' created successfully');
     }
 
     /**
@@ -120,19 +121,7 @@ class AttendanceController extends Controller
      */
     public function show(Attendance $attendance)
     {
-        $weekday_of_first = date('w', strtotime(date('Y-m-01'))) + 1;
-        $holidays = [5, 6, 12, 13, 19, 20, 26, 27, 33, 34, 40, 41];
-        $weeks = [];
-        $end_of_month = date('t');
-        for ($i = 1; $i < $weekday_of_first; $i++) {
-            array_push($weeks, '');
-        }
-
-        for ($i = 1; $i <= $end_of_month; $i++) {
-            array_push($weeks, $i);
-        }
-
-        $weeks = array_chunk($weeks, 7, true);
+        $today = $attendance->date;
 
         $attendances = Attendance::where('date', '=', $attendance->date)->with('user:id,name,title,level,id_card,image')->get();
 
@@ -158,8 +147,7 @@ class AttendanceController extends Controller
         return view('attendances.show')->with([
             'attendance' => $attendance,
             'attendances' => $attendances,
-            'holidays' => $holidays,
-            'weeks' => $weeks
+            'today' => $today
         ]);
     }
 
