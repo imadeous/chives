@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Payslip;
+use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Auth;
 
 class PayslipController extends Controller
 {
@@ -23,7 +25,7 @@ class PayslipController extends Controller
      */
     public function index()
     {
-        $payslips = Payslip::orderBy('paid_on', 'desc')->with('user:id,name,id_card,image')->paginate();
+        $payslips = Payslip::orderBy('id', 'desc')->with('user:id,name,id_card,image')->paginate();
         return view('payslips.index')->with('payslips', $payslips);
     }
 
@@ -53,7 +55,7 @@ class PayslipController extends Controller
         }
 
         $total = $request->amount + $request->service_charge;
-
+        
         Payslip::create([
             'user_id' => $request->user_id,
             'type' => $request->type,
@@ -63,8 +65,20 @@ class PayslipController extends Controller
             'paid_on' => $paid_on,
             'remarks' => $request->remarks
         ]);
+            
+        $last_transaction = Transaction::select('balance')->orderBy('created_at', 'desc')->first();
+        $balance = $last_transaction->balance - $total;
+        Transaction::create([
+            'title' => $request->type,
+            'remarks' => $request->remarks.' '.$request->paid_on,
+            'reference_number' => $request->user_id,
+            'income' => 0,
+            'amount' => $total,
+            'balance' => $balance,
+            'user_id' => Auth::user()->id
+        ]);
 
-        return redirect()->back()->with('success', 'Payslip with total of MVR ' . $total . ' ceated');
+        return redirect()->back()->with('success', 'Payslip & Transaction Record with total of MVR ' . $total . ' ceated');
     }
 
     /**
