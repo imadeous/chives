@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
 {
@@ -22,15 +23,14 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $transactions = Transaction::orderBy('id', 'desc')->with('user:id,name,image,id_card')->paginate();
-        $running_balance = Transaction::orderBy('id', 'desc')->select('balance')->first();
-
-        $last_month['month'] = date('m', strtotime('last month'));
-        $last_month['year'] = date('Y', strtotime('last month'));
+        $transactions = Transaction::orderBy('date', 'desc')->orderBy('id', 'desc')->with('user:id,name,id_card')->paginate();
+        $this_month = Transaction::whereMonth('date', '=', date('m'))->whereYear('date', '=', date('Y'))->get();
+        $last_month = Transaction::whereMonth('date', '=', date('m', strtotime('last month')))->whereYear('date', '=', date('Y', strtotime('last month')))->get();
 
         return view('transactions.index')->with([
             'transactions' => $transactions,
-            'running_balance' => $running_balance->balance
+            'this_month' => $this_month,
+            'last_month' => $last_month
         ]);
     }
 
@@ -52,7 +52,26 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        if ($request->type) {
+            $income = $request->amount;
+            $expense = 0;
+        } else {
+            $expense = $request->amount;
+            $income = 0;
+        }
+
+        Transaction::create([
+            'user_id' => Auth::user()->id,
+            'reference_number' => $request->date . '/' . $request->amount,
+            'date' => $request->date,
+            'income' => $income,
+            'expense' => $expense,
+            'title' => $request->title,
+            'remarks' => $request->remarks
+        ]);
+
+        return redirect()->back()->with('success', 'Transaction of MVR ' . $request->amount . ' has been created');
     }
 
     /**

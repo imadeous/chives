@@ -22,13 +22,13 @@ class TransactionFactory extends Factory
     public function definition()
     {
         return [
+            'date' => date('Y-m-d'),
+            'user_id' => 1,
+            'reference_number' => 'CHIVES/0001',
+            'income' => 1000000,
+            'expense' => 0,
             'title' => 'Initial Investment',
             'remarks' => 'Strating balance of the restaurant',
-            'reference_number' => 'CHIVES/0001',
-            'income' => 1,
-            'amount' => 1000000,
-            'balance' => 1000000,
-            'user_id' => 1
         ];
     }
 }

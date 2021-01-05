@@ -66,16 +66,14 @@ class PayslipController extends Controller
             'remarks' => $request->remarks
         ]);
             
-        $last_transaction = Transaction::select('balance')->orderBy('created_at', 'desc')->first();
-        $balance = $last_transaction->balance - $total;
         Transaction::create([
-            'title' => $request->type,
-            'remarks' => $request->remarks.' '.$request->paid_on,
+            'date' => $request->paid_on,
+            'user_id' => Auth::user()->id,
             'reference_number' => $request->user_id,
             'income' => 0,
-            'amount' => $total,
-            'balance' => $balance,
-            'user_id' => Auth::user()->id
+            'expense' => $total,
+            'title' => $request->type,
+            'remarks' => $request->remarks.' '.$request->paid_on,
         ]);
 
         return redirect()->back()->with('success', 'Payslip & Transaction Record with total of MVR ' . $total . ' ceated');
