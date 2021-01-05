@@ -32,7 +32,7 @@
                             <div class="col">
                                 <h5 class="card-title text-uppercase text-muted mb-0">Income</h5>
                                 <span class="h2 font-weight-bold mb-0">
-                                    MVR {{number_format($this_month_income/100, 2)}}
+                                    MVR 20,345.02
                                 </span>
                             </div>
                             <div class="col-auto">
@@ -43,9 +43,9 @@
                             </div>
                         </div>
                         <p class="mt-3 mb-0 text-sm">
-                            <span class="{{($percentage_income > 0) ? 'text-success' : 'text-danger' }} mr-2">
-                                <i class="fa {{($percentage_income > 0) ? 'fa-arrow-up' : 'fa-arrow-down' }}"></i>
-                                {{number_format($percentage_income, 2)}}%
+                            <span class="text-success mr-2">
+                                <i class="fa fa-arrow-up"></i>
+                                45.38%
                             </span>
                             <span class="text-nowrap">Since last month</span>
                         </p>
@@ -58,7 +58,7 @@
                             <div class="col">
                                 <h5 class="card-title text-uppercase text-muted mb-0">Expenses</h5>
                                 <span class="h2 font-weight-bold mb-0">
-                                    MVR {{number_format($this_month_expense/100, 2)}}
+                                    MVR 3,353
                                 </span>
                             </div>
                             <div class="col-auto">
@@ -69,9 +69,9 @@
                             </div>
                         </div>
                         <p class="mt-3 mb-0 text-sm">
-                            <span class="{{($percentage_expense > 0) ? 'text-danger' : 'text-success' }} mr-2">
-                                <i class="fa {{($percentage_expense > 0) ? 'fa-arrow-up' : 'fa-arrow-down' }}"></i>
-                                {{ number_format($percentage_expense, 2) }}%
+                            <span class="text-danger mr-2">
+                                <i class="fa fa-arrow-up"></i>
+                                23.87%
                             </span>
                             <span class="text-nowrap">Since last month</span>
                         </p>
@@ -95,9 +95,9 @@
                             </div>
                         </div>
                         <p class="mt-3 mb-0 text-sm">
-                            <span class="{{($percentage_profit > 0) ? 'text-success' : 'text-danger' }} mr-2">
-                                <i class="fa {{($percentage_profit > 0) ? 'fa-arrow-up' : 'fa-arrow-down' }}"></i>
-                                {{ number_format($percentage_profit, 2)}}%
+                            <span class="text-success mr-2">
+                                <i class="fa fa-arrow-up"></i>
+                                8.09%
                             </span>
                             <span class="text-nowrap">Since last month</span>
                         </p>

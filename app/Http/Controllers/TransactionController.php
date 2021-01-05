@@ -8,6 +8,14 @@ use Illuminate\Http\Request;
 class TransactionController extends Controller
 {
     /**
+     * Create a new instance with auth as middleware
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -17,40 +25,12 @@ class TransactionController extends Controller
         $transactions = Transaction::orderBy('id', 'desc')->with('user:id,name,image,id_card')->paginate();
         $running_balance = Transaction::orderBy('id', 'desc')->select('balance')->first();
 
-        $last_month_income = Transaction::where('income', '=', 1)
-        ->whereMonth('created_at', '=', date('m', strtotime('last month')))
-        ->whereYear('created_at', '=', date('Y', strtotime('last year')))
-        ->sum('amount');
-
-        $this_month_income = Transaction::where('income', '=', 1)
-        ->whereMonth('created_at', '=', date('m'))
-        ->whereYear('created_at', '=', date('Y'))
-        ->sum('amount');
-
-        $last_month_expense = Transaction::where('income', '=', 0)
-        ->whereMonth('created_at', '=', date('m', strtotime('last month')))
-        ->whereYear('created_at', '=', date('Y', strtotime('last year')))
-        ->sum('amount');
-
-        $this_month_expense = Transaction::where('income', '=', 0)
-        ->whereMonth('created_at', '=', date('m'))
-        ->whereYear('created_at', '=', date('Y'))
-        ->sum('amount');
-        
-        $percentage_income = (($this_month_income - $last_month_income) / $last_month_income) * 100;
-        $percentage_expense = (($this_month_expense - $last_month_expense) / $last_month_expense) * 100;
-        $percentage_profit = (($running_balance->balance - ($last_month_income - $last_month_expense)) / $running_balance->balance) * 100;
+        $last_month['month'] = date('m', strtotime('last month'));
+        $last_month['year'] = date('Y', strtotime('last month'));
 
         return view('transactions.index')->with([
             'transactions' => $transactions,
-            'running_balance' => $running_balance->balance,
-            'last_month_income' => $last_month_income,
-            'this_month_income' => $this_month_income,
-            'last_month_expense' => $last_month_expense,
-            'this_month_expense' => $this_month_expense,
-            'percentage_income' => $percentage_income,
-            'percentage_expense' => $percentage_expense,
-            'percentage_profit' => $percentage_profit
+            'running_balance' => $running_balance->balance
         ]);
     }
 
