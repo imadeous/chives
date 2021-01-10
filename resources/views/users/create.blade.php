@@ -90,7 +90,8 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label class="form-control-label" for="input-dob">Date of Birth</label>
-                                            <input name="birthday" type="date" id="input-dob" class="form-control">
+                                            <input name="birthday" type="date" max='{{ date('Y-m-d') }}' id="input-dob"
+                                                class="form-control" value="{{ date('Y-m-d') }}">
                                         </div>
                                     </div>
                                 </div>

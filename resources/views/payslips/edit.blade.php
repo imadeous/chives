@@ -80,7 +80,8 @@
                                     <small class="d-block text-muted">Please leave blank if filling the form on the date of
                                         payment</small>
                                 </label>
-                                <input type="date" class="form-control" name="paid_on" value="{{ $payslip->paid_on }}">
+                                <input type="date" class="form-control" max='{{ date('Y-m-d') }}' name="paid_on"
+                                    value="{{ $payslip->paid_on }}">
                             </div>
                             <div class="form-group">
                                 <label for="">Remarks</label>
